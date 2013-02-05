@@ -24,7 +24,9 @@ TEXT _rt0_arm_linux(SB),7,$-4
 	MOVW	R13, R2 // old_sa
 	MOVW	$8, R3 // c
 	MOVW	$174, R7 // sys_sigaction
-	BL	oabi_syscall<>(SB)
+	// next line commented out to support running on an EABI kernel with THUMB disabled
+	// otherwise it segfaults when it tries to branch to thumb code.
+	// BL	oabi_syscall<>(SB)
 
 	// do an EABI syscall
 	MOVW	$20, R7 // sys_getpid
